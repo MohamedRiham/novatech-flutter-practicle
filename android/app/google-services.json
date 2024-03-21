@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "677757829475",
+    "project_id": "novatech-flutter-test-acb1d",
+    "storage_bucket": "novatech-flutter-test-acb1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677757829475:android:a86bdce483ae217fc45356",
+        "android_client_info": {
+          "package_name": "com.example.novatech_flutter_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2D34yB9snnUiU5Yncadp1kXj-haJto9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

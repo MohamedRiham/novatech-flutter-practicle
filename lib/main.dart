@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         child: child!,
       ),
 
-  theme: ThemeData( scaffoldBackgroundColor: Colors.blue[800]!,),
+  theme: ThemeData( scaffoldBackgroundColor: Colors.blue[400]!,),
 home: Register(),
     );
 

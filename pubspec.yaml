@@ -32,7 +32,8 @@ dependencies:
     sdk: flutter
   http:
   provider:
-  responsive_framework:
+  responsive_framework: ^0.1.4
+
   sqflite:
   firebase_auth:
   firebase_core:

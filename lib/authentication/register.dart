@@ -18,27 +18,17 @@ class Register extends StatelessWidget {
 
 
     SingleChildScrollView(
-        child: Column(
-          children: [
 
-            // Row for person icon and any additional content
-            Row(
-              children: [
-                SizedBox(width: 20.0), // Add space between the two icons
-
-                Icon(Icons.person, size: 48.0), // Add the person icon
-                SizedBox(width: 160.0), // Add space between the two icons
-                Icon(Icons.person, size: 48.0), // Add the person icon
-
-              ],
-
-            ),
-            Row(
+            child: Row(
               children: [
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                SizedBox(height: 5.0),
+
+                Icon(Icons.person, size: 48.0), // Add the person icon
+
                       TextField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -76,6 +66,9 @@ _Checkbox(),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                SizedBox(width: 160.0), // Add space between the two icons
+                Icon(Icons.person, size: 48.0), // Add the person icon
+
                       TextField(
                         controller: _emailController2,
                         decoration: InputDecoration(
@@ -122,8 +115,9 @@ _Checkbox(),
                 ),
               ],
             ),
-          ],
-        ),
+          
+
+
       ),
     );
   }
@@ -258,6 +252,7 @@ class __CheckboxState extends State<_Checkbox> {
                   _isChecked = value ?? false;
                 });
               },
+checkColor: Colors.red,
             ),
             Text(
               'Show password',

@@ -41,8 +41,8 @@ class MyApp extends StatelessWidget {
 
 
 
+  theme: ThemeData( scaffoldBackgroundColor: Colors.blue[700]!,),
 
-  theme: ThemeData( scaffoldBackgroundColor: Colors.blue[400]!,),
 home: Register(),
     );
 

@@ -12,47 +12,42 @@ class DatabaseManager {
       version: 1,
       onCreate: (Database db, int version) async {
         await db.execute(
-          "CREATE TABLE data (id INTEGER PRIMARY KEY AUTOINCREMENT, api TEXT, description TEXT, auth TEXT, cors TEXT, link TEXT, category Text)",
+          "CREATE TABLE data (id INTEGER PRIMARY KEY AUTOINCREMENT, API TEXT, Description TEXT, Auth TEXT, Cors TEXT, Link TEXT, Category Text)",
         );
       },
     );
     return _database;
   }
 
-  Future<int?> insertData(ApiData apidata) async {
+  Future<int?> insertData(Map<String, dynamic> apidata) async {
     await openDb();
-    int? id = await _database?.insert('data', apidata.toMap());
-    return id;
+    await _database?.insert('data', apidata);
+
   }
 
   Future<List<ApiData>> getDataList() async {
     await openDb();
     final List<Map<String, dynamic>> maps = await _database!.rawQuery('SELECT * FROM data');
-    return List.generate(maps.length, (i) {
-      return ApiData(
-        api: maps[i]['api'],
-        description: maps[i]['description'],
-        auth: maps[i]['auth'],
-        cors: maps[i]['cors'],
-        link: maps[i]['link'],
-        category: maps[i]['category'],
-
-      );
-    });
+return maps.map((item) => ApiData.fromJson(item)).toList();
   }
 
-  Future<List<Map<String, dynamic>>> getItemsSortedByCategory(String category) async {
+  Future<List<ApiData>> getItemsSortedByCategory(String category) async {
     await openDb();
 
-  return await _database!.query('data', orderBy: 'category', where: 'category = ?', whereArgs: [category]);
-  }
+  
+List<Map<String, dynamic>> maps =  await _database!.query('data', orderBy: 'Category', where: 'Category = ?', whereArgs: [category]);
+return maps.map((item) => ApiData.fromJson(item)).toList();
+
+
+
+ }
 
 Future<void> deleteRow(String value) async {
     await openDb();
 
     await _database!.delete(
       'data',
-      where: 'api = ?',
+      where: 'API = ?',
       whereArgs: [value],
     );
   }
@@ -64,11 +59,11 @@ Future<void> updateData(String? specificValue, String? newApi, String? newDescri
     await _database!.update(
       'data', 
       {
-        'api': newApi,
-        'description': newDescription,
+        'API': newApi,
+        'Description': newDescription,
 
       }, 
-      where: 'api = ?', 
+      where: 'API = ?', 
       whereArgs: [specificValue], // Pass the specific value as a whereArgs parameter
     );
 

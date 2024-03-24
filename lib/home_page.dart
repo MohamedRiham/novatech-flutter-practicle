@@ -22,13 +22,15 @@ class _HomePageState extends State<HomePage> {
   ApiCall apicall = ApiCall();
 //initializing the model class
   List<ApiData> apidata = [];
+
 //initializing the database manager class
   final DatabaseManager dbManager = new DatabaseManager();
 //initializing the shared preferences class
   AddData sp = new AddData();
 
 //dataList variable holds all the data which fetched from the sqflite database
-  List<ApiData> dataList = [];
+  List<ApiData>  dataList = [];
+  bool isLoading = false; 
 
   @override
   void initState() {
@@ -37,40 +39,48 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> loadData() async {
+    setState(() {
+      isLoading = true; 
+    });
     Map<String, String> result = await sp.getData();
     if (result['api']!.isEmpty) {
       print('sp is empty');
       await apicall.getData();
-      setState(() {
-        apidata = apicall.saveddata;
-      });
+
     } else {
       print('sp is not empty');
     }
     dataList = await dbManager.getDataList();
-    setState(() {});
+    setState(() {
+isLoading = false;
+});
 
+    
   }
 
   // Method to sort data based on selected category
   Future<void> sortDataByCategory(String category) async {
-    final List<Map<String, dynamic>> items = await dbManager.getItemsSortedByCategory(category);
+    dataList = await dbManager.getItemsSortedByCategory(category);
+
     setState(() {
-      dataList = items.map((item) => ApiData.fromJson(item)).toList();
     });
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
       ),
-      body: Column(
+      body:  isLoading ? Center(child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+)): 
+
+Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            height: 50, // Adjust height as needed
+            height: 50, 
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: categories.length,
@@ -115,4 +125,5 @@ dataList[index].description,
       ),
     );
   }
+
 }
